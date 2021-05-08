@@ -12,7 +12,7 @@ import {
 } from '@ionic/react';
 import {FormDescription, BuildForm} from '../../helpers/form-builder';
 import {RouteComponentProps} from 'react-router';
-import {login} from '../../services/security';
+import {login, register} from '../../services/security';
 import {executeDelayed} from '../../helpers/async-helpers';
 import {User} from '../../types/types';
 import { loggedIn } from '../../actions/actions';
@@ -30,7 +30,7 @@ const formDescription: FormDescription<formData> = {
         {name: 'password', label: 'Password', type: 'password',
             position: 'floating', color: 'primary',validators: [Validator.required]}
     ],
-    submitLabel: 'Login'
+    submitLabel: 'Register'
 }
 
 const {Form ,loading, error} = BuildForm(formDescription);
@@ -39,15 +39,15 @@ export const Register: React.FunctionComponent<RouteComponentProps<any>> = (prop
 
     const dispatch = useDispatch();
 
-    const submit = (loginData: User) => {
+    const submit = (user: User) => {
         dispatch(loading(true));
-        login(loginData)
-            .then((loginInfo) => {
+        register(user)
+           /* .then((loginInfo) => {
                 dispatch(loggedIn(loginInfo))
                 executeDelayed(200,() => props.history.replace('/home/list'))
-            })
+            })*/
             .catch((err: Error) => {
-                dispatch(error('Error while logging in: ' + err.message));
+                dispatch(error('Error while registering: ' + err.message));
             })
             .finally(() => dispatch(loading(false)))
     };
@@ -58,7 +58,7 @@ export const Register: React.FunctionComponent<RouteComponentProps<any>> = (prop
                     <IonButtons slot="start">
                         <IonMenuButton />
                     </IonButtons>
-                    <IonTitle>Login</IonTitle>
+                    <IonTitle>Register</IonTitle>
                 </IonToolbar>
             </IonHeader>
 

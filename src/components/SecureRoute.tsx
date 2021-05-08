@@ -2,7 +2,7 @@ import React, { Component, FunctionComponent } from "react";
 import { Route, Redirect, RouteProps } from "react-router";
 import { isNotExpired } from "../services/security";
 import { ConnectedComponent, useSelector } from "react-redux";
-import { AppState } from "..";
+import { AppState } from "../index";
 export interface OwnProps extends RouteProps {
     extraArgs?: { [index: string]: any }
 }
