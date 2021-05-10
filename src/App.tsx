@@ -25,6 +25,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Login from "./pages/login/Login";
+import Logout from "./pages/logout/Logout";
 
 const App: React.FC = () => {
     return (
@@ -36,6 +37,7 @@ const App: React.FC = () => {
                         <Route path="/home" component={HomePage} exact={true} />
                         <Route path="/login" component={Login} exact={true} />
                         <Route path="/login/register" component={Register} exact={true} />
+                        <Route path="/logout" component={Logout} exact={true} />
                         <Route path="/" exact={true}>
                             <Redirect to="/home" />
                         </Route>

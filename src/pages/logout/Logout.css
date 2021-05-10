@@ -1,0 +1,33 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0% 7%;
+    grid-template-areas:
+    ". .";
+}
+.div-parent{
+    width:50%;
+    float:left;
+}
+.div-child-left{
+    width:30%;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto;;
+    padding-left: 70%;
+}
+.div-child-right{
+    width:30%;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto;;
+    padding-right: 70%;
+}
+.center{
+    text-align: center;
+    padding-top: 4%;
+    padding-bottom: 2%;
+}
