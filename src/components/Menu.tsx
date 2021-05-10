@@ -140,19 +140,6 @@ const Menu: React.FC = () => {
                 );
               }
             })}
-
-            {/*{(() => {
-              if (token) {
-                return (
-                    <IonMenuToggle autoHide={false}>
-                      <IonItem lines="none" detail={false} onClick={()=>dispatch(loggedOut())}>
-                        <IonIcon slot="start" ios={logOut} md={logOut} />
-                        <IonLabel>Logout {userName}</IonLabel>
-                      </IonItem>
-                    </IonMenuToggle>
-                );
-              }
-            })()}*/}
           </IonList>
         </IonContent>
       </IonMenu>

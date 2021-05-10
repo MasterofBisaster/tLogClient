@@ -20,19 +20,6 @@ import { useDispatch } from 'react-redux';
 import "./Logout.css";
 type formData = Readonly<LoginData>;
 
-/*const formDescription: FormDescription<formData> = {
-    name: 'login',
-    fields: [
-        {name: 'email', label: 'Email', type: 'email',
-            position: 'floating', color: 'primary', validators: [Validator.required, Validator.email]},
-        {name: 'password', label: 'Password', type: 'password',
-            position: 'floating', color: 'primary',validators: [Validator.required]}
-    ],
-    submitLabel: 'Login'
-}*/
-
-// const {Form ,loading, error} = BuildForm(formDescription);
-
 export const Logout: React.FunctionComponent<RouteComponentProps<any>> = (props) => {
 
     const dispatch = useDispatch();
