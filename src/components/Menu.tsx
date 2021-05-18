@@ -77,7 +77,7 @@ const secureAppPage: AppPage[] = [
   },
     {
   title: 'My Trips',
-  url: '/mytrips',
+  url: '/trips',
   iosIcon: list,
   mdIcon: list
 },{
