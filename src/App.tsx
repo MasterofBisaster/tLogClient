@@ -30,6 +30,7 @@ import TripsList from "./pages/trips/TripsList";
 import React from 'react';
 import { SecureRoute } from './components/SecureRoute';
 import TripsAdd from "./pages/trips/TripsAdd";
+import {ShowTrip} from "./pages/trips/ShowTrip";
 
 const App: React.FC = () => {
     return (
@@ -45,6 +46,7 @@ const App: React.FC = () => {
                         <SecureRoute path="/trips" component={TripsList} exact={true} />
                         <SecureRoute path="/trips/add" component={TripsAdd("add")} exact={true} />
                         <SecureRoute path="/trips/edit/:id" component={TripsAdd("edit")} exact={true} />
+                        <SecureRoute path="/trips/show/:id" component={ShowTrip} exact={true} />
                         <Route path="/" exact={true}>
                             <Redirect to="/home" />
                         </Route>

@@ -35,5 +35,6 @@ export interface Trip {
     };
     pois?: POI[]
 }
+export type POIType =  'current'|'bar'|'sight'|'restaurant'|'museum'|'church'|'pub'|'hotel'
 
 export type TripList = Trip[]
