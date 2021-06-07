@@ -5,11 +5,16 @@ import {
     loggedOut,
     deleteTripActions,
     fetchTripActions,
-    hasSeenSwipeHintAction, resetAppState, fetchTripsActions
+    hasSeenSwipeHintAction,
+    resetAppState,
+    fetchTripsActions,
+    setCurrentPositionAction,
+    setSelectedPOIAction,
+    updatePOIAction
 } from "../actions/actions";
 import { clearUserData } from "../services/security";
 import { combineReducers, AnyAction } from "redux";
-import {Trip, TripList} from "../types/types";
+import {POI, Trip, TripList} from "../types/types";
 
 const initialState = {
     loginInfo: {
@@ -21,7 +26,9 @@ const initialState = {
         trips: [],
         errorMessage: '',
         currentTrip: null,
-        hasSeenSwipeHint: false
+        hasSeenSwipeHint: false,
+        currentPosition: [1, 1],
+        selectedPOI: null
     } as TripState
 }
 
@@ -57,7 +64,20 @@ const trips = createReducer<TripState,AnyAction>(initialState.trips)
         currentTrip: action.payload
     }))
     .handleAction(hasSeenSwipeHintAction, (state, _) => ({ ...state, hasSeenSwipeHint: true }))
-
+    .handleAction(setCurrentPositionAction,
+        (state, { payload: currentPosition }) =>
+            ({ ...state, currentPosition }))
+    .handleAction(setSelectedPOIAction, (state, { payload: selectedPOI }) =>
+        ({ ...state, selectedPOI: selectedPOI ? { ...selectedPOI } : null })
+    )
+    .handleAction(updatePOIAction, (state, action) => {
+        return state.currentTrip ? ({
+            ...state, currentTrip: {
+                ...state.currentTrip, pois: state.currentTrip.pois ? state.currentTrip.pois.reduce((acc, poi) =>
+                    [...acc, (poi._id === action.payload._id ? action.payload : poi)], [] as POI[]) : undefined
+            }
+        }) : state
+    })
 export const tLogApp = combineReducers({
     user, trips
 });
@@ -67,5 +87,7 @@ export interface TripState {
     errorMessage: string;
     currentTrip: null | Readonly<Trip>;
     hasSeenSwipeHint: boolean;
+    currentPosition: [number, number];
+    selectedPOI: POI | null;
 }
 

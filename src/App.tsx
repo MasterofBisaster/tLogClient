@@ -31,6 +31,8 @@ import React from 'react';
 import { SecureRoute } from './components/SecureRoute';
 import TripsAdd from "./pages/trips/TripsAdd";
 import {ShowTrip} from "./pages/trips/ShowTrip";
+import AddPOI from "./pages/trips/AddPOI";
+import {ShowPOI} from "./pages/trips/ShowPOI";
 
 const App: React.FC = () => {
     return (
@@ -47,6 +49,9 @@ const App: React.FC = () => {
                         <SecureRoute path="/trips/add" component={TripsAdd("add")} exact={true} />
                         <SecureRoute path="/trips/edit/:id" component={TripsAdd("edit")} exact={true} />
                         <SecureRoute path="/trips/show/:id" component={ShowTrip} exact={true} />
+                        <SecureRoute path="/trips/poi/add/:tripId" component={AddPOI('add')} exact={true} />
+                        <SecureRoute path="/trips/poi/edit/:tripId" component={AddPOI('edit')} exact={true} />
+                        <SecureRoute path="/trips/poi/show" component={ShowPOI} exact={true} />
                         <Route path="/" exact={true}>
                             <Redirect to="/home" />
                         </Route>

@@ -1,5 +1,5 @@
 import { createAuthenticationHeader } from './security'
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import config from './server-config'
 import { TripList, Trip, POI } from '../types/types';
 import { executeDelayed } from '../helpers/async-helpers';
@@ -13,7 +13,29 @@ const endpoint = axios.create({
     baseURL: config.host,
     responseType: 'json'
 });
+const process = <T = any>(r:AxiosResponse<T|ErrorMessage>) => {
+    if (r.status >= 300) {
+        const { message } = r.data as ErrorMessage;
+        throw new Error(message || r.statusText);
+    }
+    return r.data as T;
+}
 
+export const addPOIToTrip = (token: string, tripId: string, poi: POI) =>
+    endpoint.post<Trip>(`${config.tripURI}/${tripId}/addPOI`, poi, { headers: createAuthenticationHeader(token) })
+        .then(process);
+
+export const updatePOI = (token: string, poi: POI) =>
+    endpoint.put<POI>(`${config.poiURL}/${poi._id}`, poi, { headers: createAuthenticationHeader(token) })
+        .then(process);
+
+export const loadPOI = (token: string, poiId: string) =>
+    endpoint.get<POI | ErrorMessage>(`${config.poiURL}/${poiId}`, { headers: createAuthenticationHeader(token) })
+        .then(process)
+
+export const removePOI = (token: string, tripId: string, poiId: string) =>
+    endpoint.delete<Trip | ErrorMessage>(`${config.tripURI}/${tripId}/${poiId}`,
+        { headers: createAuthenticationHeader(token) }).then(process)
 export const fetchMyTrips = (token: string) =>
     endpoint.get<TripList | ErrorMessage>(config.myTripURI, { headers: createAuthenticationHeader(token) })
         // Use this to simulate network latency

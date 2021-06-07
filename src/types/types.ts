@@ -12,14 +12,6 @@ export interface LoginData {
 
 export interface ErrorMessage {
     message: string
-}export interface POI {
-    _id: string
-    name: string;
-    type: string;
-    description?: string;
-    loc: GeoJSON.Point;
-    creator?: any;
-    createdAt?: Date;
 }
 
 export interface Trip {
@@ -34,6 +26,15 @@ export interface Trip {
         username: string
     };
     pois?: POI[]
+}
+export interface POI {
+    _id: string
+    name: string;
+    description?: string;
+    loc: GeoJSON.Point;
+    creator?: any;
+    createdAt?: Date;
+    type: POIType;
 }
 export type POIType =  'current'|'bar'|'sight'|'restaurant'|'museum'|'church'|'pub'|'hotel'
 
